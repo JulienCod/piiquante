@@ -1,6 +1,19 @@
-const express = require('express'); 
+const express = require('express'); // import de express
 const app = express();
+const mongoose = require('mongoose') //import du module mongoose
+const userRoutes = require("./routes/user"); // import du fichier routes user
+
 require('dotenv').config();
+
+// connexion a la base de données mongoDB
+mongoose.connect(`mongodb+srv://${process.env.ID_MONGO_DB}:${process.env.PWD_MONGO_DB}@cluster0.58bjj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`,
+    {useNewUrlParser: true,
+    useUnifiedTopology: true})
+    .then(()=> console.log('Connexion à MongoDB réussie !'))
+    .catch(() => console.log('Connexion à MongoDB échouée !'));
+
+// Permet d'analyser le corps de la requête.
+app.use(express.json()); 
 
 // configuration des CORS doit être placé avant les routes de l'API
 app.use((req, res, next) => {
@@ -11,6 +24,7 @@ app.use((req, res, next) => {
 })
 
 // configuration des routes
+app.use('/api/auth', userRoutes);
 
 
 module.exports = app;
