@@ -2,6 +2,9 @@ const express = require('express'); // import de express
 const app = express();
 const mongoose = require('mongoose') //import du module mongoose
 const userRoutes = require("./routes/user"); // import du fichier routes user
+const userSauces = require('./routes/sauces'); // import du fichier routes des sauces
+const path = require('path');
+
 
 require('dotenv').config();
 
@@ -23,8 +26,11 @@ app.use((req, res, next) => {
     next();
 })
 
+app.use('/images', express.static(path.join(__dirname, 'images')))
+
 // configuration des routes
 app.use('/api/auth', userRoutes);
+app.use('/api/sauces', userSauces);
 
 
 module.exports = app;

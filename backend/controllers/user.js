@@ -9,8 +9,8 @@ exports.signup = (req, res, next) => {
     bcrypt.hash(req.body.password, 10) // hash du mot du passe
     .then(hash => {
         const user = new User({ //création de l'objet contenant le mail et le mot de passe
-            email: req.body.email,
-            password: hash
+            email: req.body.email, // enregistrement de l'adresse mail dans la bd
+            password: hash  // enregistrement du mot de passe hasher dans la base de données
         });
         user.save() // enregistrement de l'objet user
             .then(() => res.status(201).json({message: 'Utilisateur créé !'})) // réponse en cas de success
