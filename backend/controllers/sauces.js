@@ -1,5 +1,6 @@
 const Sauce = require('../models/Sauce');
 const fs = require('fs');
+const validator = require('../middlewares/sauce-validator')
 
 exports.getAllSauces = (req, res, next) => {
     Sauce.find()
@@ -15,9 +16,9 @@ exports.getOneSauce = (req, res, next) => {
 
 exports.createSauce = (req, res, next) => {
     const sauceObject = JSON.parse(req.body.sauce);
-    const image = (req.body.image);
     delete sauceObject._id;
-    if(sauceObject.name && sauceObject.manufacturer && sauceObject.description && sauceObject.mainPepper && !image  ) {
+    let image = req.file.filename
+    if(image != null ) {
         const sauce = new Sauce({
             ...sauceObject,
             imageUrl:`${req.protocol}://${req.get('host')}/images/${req.file.filename}`
