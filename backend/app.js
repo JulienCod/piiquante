@@ -1,10 +1,9 @@
-const express = require('express'); // import de express
+const express = require('express');
 const app = express();
-const mongoose = require('mongoose') //import du module mongoose
-const userRoutes = require("./routes/user"); // import du fichier routes user
-const userSauces = require('./routes/sauces'); // import du fichier routes des sauces
+const mongoose = require('mongoose');
+const userRoutes = require("./routes/user");
+const userSauces = require('./routes/sauces');
 const path = require('path');
-// importation des modules de protections
 const helmet = require("helmet");
 
 require('dotenv').config();
@@ -20,6 +19,7 @@ mongoose.connect(`mongodb+srv://${process.env.ID_MONGO_DB}:${process.env.PWD_MON
 app.use(express.json()); 
 
 app.use(helmet({ crossOriginResourcePolicy: { policy: "same-site" } }));
+
 // configuration des CORS doit être placé avant les routes de l'API
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');

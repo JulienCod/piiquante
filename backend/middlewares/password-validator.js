@@ -1,18 +1,18 @@
 const passwordSchema = require('../models/Password');
 
-// On vérifie que le mot de passe respecte le schéma et on renvoie un message si c'est incorrect.
+// fonction de vérification de la validité des mots passe renseigner en paramètre
 module.exports = (req, res, next) => {
-    if (!passwordSchema.validate(req.body.password)) {  // si le format du mot de passe est incorrect
-        let messages = passwordSchema.validate(req.body.password, {details: true }) ;  // enregistrement du détails des erreurs dans une variable
-        let errorMessage = '';  // initialisation message d'affichage
+    if (!passwordSchema.validate(req.body.password)) {  
+        let messages = passwordSchema.validate(req.body.password, {details: true }) ;  
+        let errorMessage = '';  
         for (const message of messages) {
-            errorMessage+= message.message + ' ';       // concaténation des messages d'erreur
+            errorMessage+= message.message + ' '; 
         }
-        res.writeHead(400, errorMessage, {  // affichage du message d'erreur
+        res.writeHead(400, errorMessage, {  
             'content-type': 'application/json'
         });
         res.end('Le format du mot de passe est incorrect.');
     } else {
-        next(); //sinon on continue l'execution
+        next(); 
     }
 };

@@ -1,3 +1,5 @@
+// fonction de validation du formulaire des sauces 
+
 module.exports = (req, res, next) => {
     try {
         let ctrlInputs = new RegExp("^[A-Za-zàâäéèêëïîôöùûüç '0-9]{2,}$");
@@ -23,9 +25,7 @@ module.exports = (req, res, next) => {
             res.status(402).json({ message: 'Formulaire incorrect' });
         }
     } 
-    catch {
-        res.status(401).json({
-        error: new Error('Invalid request!')
-        });
+    catch (error) {
+        res.status(500).json({error});
     }
 }

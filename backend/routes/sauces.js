@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
-const auth = require('../middlewares/auth');     //  contrôle d'identification
-const multer = require('../middlewares/multer-config');  // configuration de multer pour les formats d'images
-const idCompare = require('../middlewares/id-compare');  // compare les tokens de l'identifiant pour autoriser au non la modification ou la suppresion des sauces
-const limited =require('../middlewares/limite-req');    //limite de nombre de requète pour un temps donné
+const auth = require('../middlewares/auth');
+const multer = require('../middlewares/multer-config');
+const idCompare = require('../middlewares/id-compare');
+const limited =require('../middlewares/limite-req');
 const sauceValidator = require('../middlewares/sauce-validator');
-const saucesCtrl = require('../controllers/sauces');    // contrôleur des sauces
+const saucesCtrl = require('../controllers/sauces');
 
 router.get('/', auth, saucesCtrl.getAllSauces); // route pour afficher toute les sauces
 

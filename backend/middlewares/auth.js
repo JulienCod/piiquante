@@ -1,19 +1,18 @@
-const jwt = require('jsonwebtoken'); // import du module jwt
-require('dotenv').config(); // variable d'environnement 
+const jwt = require('jsonwebtoken'); 
+require('dotenv').config(); 
 
+// fonction d'authentication
 module.exports = (req, res, next) => {  
   try {
-    const token = req.headers.authorization.split(' ')[1]; // récupére la valeur du token présent dans les headers
-    const decodedToken = jwt.verify(token, process.env.TOKEN_KEY);  // comparaison du token présent dans le headers avec la clé secrète
+    const token = req.headers.authorization.split(' ')[1]; 
+    const decodedToken = jwt.verify(token, process.env.TOKEN_KEY); 
     const userId = decodedToken.userId; 
-    if (req.body.userId && req.body.userId !== userId) { // si le token est différent
-      res.status(403).json({ message: 'Requête non autorisée' });   // message d'erreur
+    if (req.body.userId && req.body.userId !== userId) {
+      res.status(403).json({ message: 'Requête non autorisée' });  
     } else {
-      next(); // sinon on continue l'exécution
+      next(); 
     }
-  } catch {
-    res.status(401).json({
-      error: new Error('Invalid request!')  // message d'erreur
-    });
+  } catch (error) {
+    res.status(500).json({error});
   }
 };

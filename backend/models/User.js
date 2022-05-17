@@ -1,5 +1,5 @@
-const mongoose = require('mongoose'); // import du module mongoose
-const uniqueValidator = require('mongoose-unique-validator'); // import du module mongoose unique validator
+const mongoose = require('mongoose'); 
+const uniqueValidator = require('mongoose-unique-validator'); 
 
 // configuration du schema de la base de données mongodb
 const userSchema = mongoose.Schema({
@@ -7,8 +7,7 @@ const userSchema = mongoose.Schema({
     password: {type: 'string', required: true}
 });
 
-//plugin de validation d'adresse mail unique
+//plugin de validation d'une adresse mail unique
 userSchema.plugin(uniqueValidator);
 
-//exports du modèle mongoose
 module.exports = mongoose.model('User',userSchema);
